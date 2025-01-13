@@ -41,8 +41,8 @@ public class TreasureHunter {
      */
     private void welcomePlayer() {
         System.out.println("Welcome to " + Colors.CYAN + "TREASURE HUNTER!"+ Colors.RESET);
-        System.out.println("Going hunting for the big treasure, eh?");
-        System.out.print("What's your name, Hunter? ");
+        System.out.println("Going hunting for the big " + Colors.YELLOW + "treasure" + Colors.RESET + ", eh?");
+        System.out.print("What's your name, " + Colors.RED + "Hunter" + Colors.RESET + "? ");
         String name = SCANNER.nextLine().toLowerCase();
 
         // set hunter instance variable
