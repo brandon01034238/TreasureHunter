@@ -36,6 +36,8 @@ public class Hunter {
         gold += modifier;
         if (gold < 0) {
             gold = 0;
+            System.out.println("\nGame over! You lost all your gold!\n");
+            System.exit(0);
         }
     }
 
