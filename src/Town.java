@@ -149,4 +149,33 @@ public class Town {
         double rand = Math.random();
         return (rand < 0.5);
     }
+
+    public void searchForTreasure() {
+        String treasure = "";
+        double noTreasureChance;
+        if (toughTown) {
+            noTreasureChance = .66;
+        } else {
+            noTreasureChance = .33;
+        }
+        if (Math.random() > noTreasureChance) {
+            printMessage = "You found dust";
+        } else {
+            printMessage = "You found treasure";
+            if (Math.random() < .33) {
+                treasure = "crown";
+                printMessage = "You found a crown!";
+            } else if (Math.random() > .33 && Math.random() < .66) {
+                treasure = "trophy";
+                printMessage = "You found a trophy";
+            } else if (Math.random() > .66) {
+                treasure = "gem";
+                printMessage = "You found a gem";
+            }
+            if (!hunter.hasTreasuresInKit(treasure)) {
+
+            }
+        }
+
+    }
 }
