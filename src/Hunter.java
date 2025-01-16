@@ -19,7 +19,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[6]; // only 5 possible items can be stored in kit
+        kit = new String[7]; // only 7 possible items can be stored in kit
         gold = startingGold;
         treasures = new String[3];
     }
@@ -131,9 +131,9 @@ public class Hunter {
      * @return The printable String representation of the inventory.
      */
 
-     private boolean addTreasures(String treasure) {
-         if (!hasItemInKit(treasure)) {
-             int idx = emptyPositionInKit();
+     public boolean addTreasure(String treasure) {
+         if (!hasTreasuresInKit(treasure)) {
+             int idx = emptyPositionInTreasure();
              treasures[idx] = treasure;
              return true;
          }
@@ -212,6 +212,15 @@ public class Hunter {
     private int emptyPositionInKit() {
         for (int i = 0; i < kit.length; i++) {
             if (kit[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int emptyPositionInTreasure() {
+        for (int i = 0; i < treasures.length; i++) {
+            if (treasures[i] == null) {
                 return i;
             }
         }
