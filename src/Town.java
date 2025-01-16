@@ -69,7 +69,7 @@ public class Town {
             if(!th.isEasyMode()) {
                 if (checkItemBreak()) {
                     hunter.removeItemFromKit(item);
-                    printMessage += "\nUnfortunately, your " + item + " broke.";
+                    printMessage += "\nUnfortunately, you lost your " + item;
                 }
             }
             return true;
