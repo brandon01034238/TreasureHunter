@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 /**
  * The Town Class is where it all happens.
  * The Town is designed to manage all the things a Hunter can do in town.
@@ -157,31 +159,49 @@ public class Town {
     }
 
     public void searchForTreasure() {
-        String treasure = "";
-        double noTreasureChance;
-        if (toughTown) {
-            noTreasureChance = .66;
-        } else {
-            noTreasureChance = .33;
-        }
-        if (Math.random() > noTreasureChance) {
-            printMessage = "You found dust";
-        } else {
-            printMessage = "You found treasure";
-            if (Math.random() < .33) {
-                treasure = "crown";
-                printMessage = "You found a crown!";
-            } else if (Math.random() > .33 && Math.random() < .66) {
-                treasure = "trophy";
-                printMessage = "You found a trophy";
-            } else if (Math.random() > .66) {
-                treasure = "gem";
-                printMessage = "You found a gem";
+        if (!searched) {
+            String treasure = "";
+            double noTreasureChance;
+            double treasureChance = Math.random();
+            if (toughTown) {
+                noTreasureChance = .66;
+            } else {
+                noTreasureChance = .33;
             }
-            if (!hunter.hasTreasuresInKit(treasure)) {
+            if (treasureChance > noTreasureChance) {
+                System.out.println("You found dust");
+            } else {
+                System.out.println("You found treasure");
+                if (treasureChance < .33) {
+                    treasure = "crown";
+                    System.out.println("You found a crown!");
+                } else if (treasureChance > .33 && treasureChance < .66) {
+                    treasure = "trophy";
+                    System.out.println("You found a trophy");
+                } else if (treasureChance > .66) {
+                    treasure = "gem";
+                    System.out.println("You found a gem");
+                }
+                if (!hunter.hasTreasuresInKit(treasure)) {
+                    hunter.addTreasure(treasure);
 
+                }
+            }
+        } else {
+            System.out.println("This town is searched");
+        }
+    }
+
+    public void digForTreasure() {
+        if (!dug) {
+            double digChance = Math.random();
+            if (hunter.hasItemInKit("shovel")) {
+                if (digChance > .49) {
+                    double gold = (int) (Math.random() * 20) + 1;
+                    System.out.println("You dug up " + gold + " gold!");
+                    hunter.changeGold((int) +gold);
+                }
             }
         }
-
     }
 }
