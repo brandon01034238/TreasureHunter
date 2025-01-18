@@ -13,7 +13,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
-    private boolean searched;
+    private boolean searched = true;
     private String treasure;
     private boolean dug;
     private TreasureHunter th;
@@ -159,49 +159,60 @@ public class Town {
     }
 
     public void searchForTreasure() {
-        if (!searched) {
-            String treasure = "";
-            double noTreasureChance;
-            double treasureChance = Math.random();
-            if (toughTown) {
-                noTreasureChance = .66;
-            } else {
-                noTreasureChance = .33;
-            }
-            if (treasureChance > noTreasureChance) {
-                System.out.println("You found dust");
-            } else {
-                System.out.println("You found treasure");
-                if (treasureChance < .33) {
-                    treasure = "crown";
-                    System.out.println("You found a crown!");
-                } else if (treasureChance > .33 && treasureChance < .66) {
-                    treasure = "trophy";
-                    System.out.println("You found a trophy");
-                } else if (treasureChance > .66) {
-                    treasure = "gem";
-                    System.out.println("You found a gem");
+        if (searched) {
+            if (searched) {
+                String treasure = "";
+                double noTreasureChance;
+                double treasureChance = Math.random();
+                if (toughTown) {
+                    noTreasureChance = .66;
+                } else {
+                    noTreasureChance = .33;
                 }
-                if (!hunter.hasTreasuresInKit(treasure)) {
+                if (treasureChance > noTreasureChance) {
+                    System.out.println("\nYou found dust");
+                } else {
+                    System.out.println("\nYou found treasure");
+                    if (treasureChance < .33) {
+                        treasure = "crown";
+                        System.out.println("\nYou found a crown!");
+                    } else if (treasureChance > .33 && treasureChance < .66) {
+                        treasure = "trophy";
+                        System.out.println("\nYou found a trophy");
+                    } else if (treasureChance > .66) {
+                        treasure = "gem";
+                        System.out.println("\nYou found a gem");
+                    }
+                } if (!hunter.hasTreasuresInKit(treasure)) {
                     hunter.addTreasure(treasure);
-
                 }
             }
-        } else {
-            System.out.println("This town is searched");
-        }
+            searched = false;
+        } System.out.println("\nThis town is searched");
     }
 
     public void digForTreasure() {
         if (!dug) {
-            double digChance = Math.random();
-            if (hunter.hasItemInKit("shovel")) {
-                if (digChance > .49) {
-                    double gold = (int) (Math.random() * 20) + 1;
-                    System.out.println("You dug up " + gold + " gold!");
-                    hunter.changeGold((int) +gold);
+            if (!hunter.hasItemInKit("shovel")) {
+                System.out.println("Buy a shovel because");
+            } else if (!dug) {
+                double digChance = Math.random();
+                if (hunter.hasItemInKit("shovel")) {
+                    if (digChance > .49) {
+                        double gold = (int) (Math.random() * 20) + 1;
+                        System.out.println("You dug up " + gold + " gold!");
+                        hunter.changeGold((int) +gold);
+                        System.out.println("Gold has been dug for in this town");
+                    }
+                    dug = true;
+                } else {
+                    System.out.println("You couldn't find any gold");
+                    System.out.println("Gold has been dug for in this town");
+                    dug = true;
                 }
+
             }
         }
+        System.out.println("You can't dig for gold");
     }
 }
