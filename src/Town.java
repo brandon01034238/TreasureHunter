@@ -194,25 +194,23 @@ public class Town {
     public void digForTreasure() {
         if (!dug) {
             if (!hunter.hasItemInKit("shovel")) {
-                System.out.println("Buy a shovel because");
-            } else if (!dug) {
-                double digChance = Math.random();
-                if (hunter.hasItemInKit("shovel")) {
-                    if (digChance > .49) {
-                        double gold = (int) (Math.random() * 20) + 1;
-                        System.out.println("You dug up " + gold + " gold!");
-                        hunter.changeGold((int) +gold);
-                        System.out.println("Gold has been dug for in this town");
-                    }
-                    dug = true;
+                System.out.println("\nYou must acquire a shovel to dig");
+            } else if (hunter.hasItemInKit("shovel")) {
+                double chance = Math.random();
+                if (chance > .49) {
+                    double gold = (int) (Math.random() * 20) + 1;
+                    hunter.changeGold((int) + gold);
+                    System.out.println("\nYou dug up " + gold + " gold");
                 } else {
-                    System.out.println("You couldn't find any gold");
-                    System.out.println("Gold has been dug for in this town");
-                    dug = true;
+                    System.out.println("\nYou didn't dig up any gold");
                 }
-
+                dug = true;
             }
+        } else {
+            System.out.println("\nThis town is dug");
         }
-        System.out.println("You can't dig for gold");
     }
 }
+
+
+
